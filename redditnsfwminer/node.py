@@ -1,3 +1,4 @@
+import bs4
 import logging
 import json
 import requests
