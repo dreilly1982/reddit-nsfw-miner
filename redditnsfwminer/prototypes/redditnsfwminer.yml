@@ -1,0 +1,29 @@
+url: https://github.com/dreilly1982/reddit-nsfw-miner
+description: >
+  Reddit NSFW subreddit miner.
+
+prototypes:
+  nsfwsubreddits:
+    author: Don Reilly
+    class: redditnsfwminer.Miner
+    development_status: EXPERIMENTAL
+    node_type: miner
+    indicator_types:
+      - URL
+    tags:
+      - extension
+      - incapsulaminer
+    description: >
+      test prototype for redditnsfwminer.Miner, mines URLs of NSFW subreddits
+    config:
+      polling_timeout: 20
+      verify_cert: true
+      source_name: reddit.NSFW411
+      # age out of indicators
+      # disabled, removed when they disappear from the channel
+      age_out:
+        sudden_death: true
+        default: null
+      # flag indicators with share level green
+      attributes:
+        share_level: green

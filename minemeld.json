@@ -1,0 +1,17 @@
+{
+    "version": "0.1",
+    "name": "reddit-nsfw-miner",
+    "author": "Don Reilly",
+    "author_email": "dreilly1982@gmail.com",
+    "description": "MineMeld miner node for NSFW Reddit subreddits",
+    "url": "https://github.com/dreilly1982/reddit-nsfw-miner",
+    "entry_points": {
+        "minemeld_nodes": {
+            "redditnsfwminer.Miner": "redditnsfwminer.node:Miner"
+        },
+        "minemeld_prototypes": {
+            "redditnsfwminer.prototypes": "redditnsfwminer:prototypes"
+        }
+    },
+    "manifest_version": 0
+}
