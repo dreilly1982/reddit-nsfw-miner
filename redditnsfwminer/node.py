@@ -51,13 +51,17 @@ class Miner(BasePollerFT):
         return result
 
     def _process_item(self, item):
+        retval = []
         if item is None:
             LOG.error('%s - no subreddit', self.name)
-            return []
+            return retval
         indicator = 'www.reddit.com{}/*'.format(item)
         value = {
                 'type': 'URL',
                 'confidence': '100'
                 }
+        retval.append([indicator, value])
+        indicator = 'www.reddit.com{}'.format(item)
+        retval.append([indicator, value])
 
-        return [[indicator, value]]
+        return retval
