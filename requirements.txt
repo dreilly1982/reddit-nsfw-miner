@@ -1,2 +1,4 @@
 minemeld-core>=0.9.32b2
 requests
+beautifulsoup4
+lxml
