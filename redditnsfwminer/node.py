@@ -54,7 +54,7 @@ class Miner(BasePollerFT):
         if item is None:
             LOG.error('%s - no subreddit', self.name)
             return []
-        indicator = 'www.reddit.com{}/*'
+        indicator = 'www.reddit.com{}/*'.format(item)
         value = {
                 'type': 'URL',
                 'confidence': '100'
