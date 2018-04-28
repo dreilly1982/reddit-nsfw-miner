@@ -44,7 +44,7 @@ class Miner(BasePollerFT):
             raise
         result = []
 
-        pattern = re.compile("\/r\/.*")
+        pattern = re.compile("r\/.*")
         while r.status_code == 200:
             soup = bs4.BeautifulSoup(r.content, 'lxml')
             for tr in soup.find_all('tr'):
@@ -62,13 +62,13 @@ class Miner(BasePollerFT):
         if item is None:
             LOG.error('%s - no subreddit', self.name)
             return retval
-        indicator = 'www.reddit.com{}/*'.format(item)
+        indicator = 'www.reddit.com/{}/*'.format(item)
         value = {
                 'type': 'URL',
                 'confidence': '100'
                 }
         retval.append([indicator, value])
-        indicator = 'www.reddit.com{}'.format(item)
+        indicator = 'www.reddit.com/{}'.format(item)
         retval.append([indicator, value])
 
         return retval
