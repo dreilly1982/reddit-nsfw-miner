@@ -15,9 +15,11 @@ class Miner(BasePollerFT):
         self.polling_timeout = self.config.get('polling_timeout', 20)
         self.verify_cert = self.config.get('verify_cert', True)
 
-        self.url = 'https://www.reddit.com/r/NSFW411/wiki/index'
 
     def _build_iterator(self, item):
+
+        i = 1
+        url = 'https://www.reddit.com/r/NSFW411/wiki/fulllist{}'.format(i)
         rkwargs = dict(
                 stream = False,
                 verify = self.verify_cert,
@@ -30,7 +32,7 @@ class Miner(BasePollerFT):
         s.headers.update({'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'})
 
         r = s.get(
-                self.url,
+                url,
                 **rkwargs
         )
 
@@ -41,12 +43,17 @@ class Miner(BasePollerFT):
                     self.name, r.status_code, r.content)
             raise
         result = []
+
         pattern = re.compile("\/r\/.*")
-        soup = bs4.BeautifulSoup(r.content, 'lxml')
-        for tr in soup.find_all('tr'):
-            a = tr.find('a')
-            if a and pattern.match(a.text):
-                result.append(a.text)
+        while r.status_code == 200:
+            soup = bs4.BeautifulSoup(r.content, 'lxml')
+            for tr in soup.find_all('tr'):
+                a = tr.find('a')
+                if a and pattern.match(a.text):
+                    result.append(a.text)
+            i += 1
+            url = 'https://www.reddit.com/r/NSFW411/wiki/fulllist{}'.format(i)
+            r = s.get(url, **rkwargs)
 
         return result
 
